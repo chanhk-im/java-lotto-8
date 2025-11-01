@@ -7,12 +7,12 @@ import lotto.exception.LottoNumbersWrongSizeException;
 public class Lotto {
     private final List<LottoNumber> numbers;
 
-    public Lotto(List<LottoNumber> lottoNumbers) {
+    private Lotto(List<LottoNumber> lottoNumbers) {
         this.numbers = lottoNumbers;
 
     }
 
-    public static Lotto of(List<Integer> numbers) {
+    public static Lotto numbersOf(List<Integer> numbers) {
         validate(numbers);
 
         return new Lotto(numbers.stream().map(LottoNumber::valueOf).toList());
