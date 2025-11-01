@@ -26,4 +26,14 @@ public class LottoNumbersTest {
 
         assertThatThrownBy(() -> new LottoNumbers(numbers)).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    @DisplayName("[LottoNumbers] LottoNumbers의 멤버 변수들은 불변성을 보장한다.")
+    void immutableMemberVariable() {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
+
+        LottoNumbers lottoNumbers = new LottoNumbers(numbers);
+
+        assertThat(lottoNumbers.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6);
+    }
 }

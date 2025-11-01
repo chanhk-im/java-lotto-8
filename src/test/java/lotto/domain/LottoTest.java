@@ -1,11 +1,11 @@
-package lotto;
+package lotto.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.*;
 
 class LottoTest {
     @Test
@@ -22,4 +22,13 @@ class LottoTest {
     }
 
     // TODO: 추가 기능 구현에 따른 테스트 코드 작성
+    @Test
+    @DisplayName("[LottoNumbers] 생성자 호출할 때 인자로 List<Integer>를 넣어줘야 함")
+    void createLottoNumbers() {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
+
+        Lotto lottoNumbers = new Lotto(numbers);
+
+        assertThat(lottoNumbers.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6);
+    }
 }
