@@ -1,4 +1,5 @@
 package lotto.exception;
 
-public class LottoNumbersWrongSizeException {
+public class LottoNumbersWrongSizeException extends IllegalArgumentException {
+
 }

@@ -39,4 +39,17 @@ public class Lotto {
     public List<Integer> getNumbers() {
         return numbers.stream().map(LottoNumber::getValue).toList();
     }
+
+    public boolean contains(int number) {
+        return getNumbers().contains(number);
+    }
+
+    public int getSameElementCount(Lotto other) {
+        long sameElementCount = other.getNumbers()
+                .stream()
+                .filter(this::contains)
+                .count();
+
+        return Long.valueOf(sameElementCount).intValue();
+    }
 }

@@ -30,4 +30,26 @@ class LottoTest {
 
         assertThat(lottoNumbers.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6);
     }
+
+    @Test
+    @DisplayName("[LottoNumbers] Lotto가 해당 숫자를 포함하면 true를 반환한다.")
+    void containNumber() {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
+
+        Lotto lottoNumbers = Lotto.numbersOf(numbers);
+
+        assertThat(lottoNumbers.contains(2)).isTrue();
+    }
+
+    @Test
+    @DisplayName("[LottoNumbers] 다른 Lotto와 비교해서 같은 element의 개수를 반환한다.")
+    void sameElementCount() {
+        List<Integer> numbers1 = List.of(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers2 = List.of(1, 2, 7, 8, 9, 10);
+
+        Lotto lottoNumbers1 = Lotto.numbersOf(numbers1);
+        Lotto lottoNumbers2 = Lotto.numbersOf(numbers2);
+
+        assertThat(lottoNumbers1.getSameElementCount(lottoNumbers2)).isEqualTo(2);
+    }
 }
