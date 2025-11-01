@@ -2,33 +2,41 @@ package lotto.domain;
 
 import java.util.List;
 import lotto.exception.LottoNumbersHaveDuplicatedValueException;
+import lotto.exception.LottoNumbersWrongSizeException;
 
 public class Lotto {
     private final List<LottoNumber> numbers;
 
-    public Lotto(List<Integer> numbers) {
-        validate(numbers);
+    public Lotto(List<LottoNumber> lottoNumbers) {
+        this.numbers = lottoNumbers;
 
-        this.numbers = numbers.stream().map(LottoNumber::valueOf).toList();
     }
 
-    private void validate(List<Integer> numbers) {
+    public static Lotto of(List<Integer> numbers) {
+        validate(numbers);
+
+        return new Lotto(numbers.stream().map(LottoNumber::valueOf).toList());
+    }
+
+    private static void validate(List<Integer> numbers) {
         validateNumbersIsNotDuplicated(numbers);
 
         validateNumbersSize(numbers);
     }
 
-    private void validateNumbersSize(List<Integer> numbers) {
+    private static void validateNumbersSize(List<Integer> numbers) {
         if (numbers.size() != 6) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+            throw new LottoNumbersWrongSizeException();
         }
     }
 
-    private void validateNumbersIsNotDuplicated(List<Integer> numbers) {
+    private static void validateNumbersIsNotDuplicated(List<Integer> numbers) {
         if (numbers.size() > numbers.stream().distinct().count()) {
             throw new LottoNumbersHaveDuplicatedValueException();
         }
     }
 
-    // TODO: 추가 기능 구현
+    public List<Integer> getNumbers() {
+        return numbers.stream().map(LottoNumber::getValue).toList();
+    }
 }
