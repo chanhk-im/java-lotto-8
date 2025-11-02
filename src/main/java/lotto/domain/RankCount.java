@@ -1,12 +1,12 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.EnumMap;
+import lotto.constants.RankOfSameCount;
 
-public record RankCount(List<Integer> rankCount) {
+public record RankCount(EnumMap<RankOfSameCount, Integer> rankCount) {
 
     @Override
-    public List<Integer> rankCount() {
-        return new ArrayList<Integer>(rankCount);
+    public EnumMap<RankOfSameCount, Integer> rankCount() {
+        return new EnumMap<>(rankCount);
     }
 }
