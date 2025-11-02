@@ -8,7 +8,8 @@ public enum RankOfSameCount {
     SECOND(5, true, 30000000),
     THIRD(5, false, 1500000),
     FOURTH(4, false, 50000),
-    FIFTH(3, false, 5000);
+    FIFTH(3, false, 5000),
+    NONE(0, false, 0);
 
     private final int sameCount;
     private final boolean isBonusNumberSame;
@@ -35,7 +36,7 @@ public enum RankOfSameCount {
     public static RankOfSameCount findRank(int sameCount, boolean isBonusNumberSame) {
         RankOfSameCount rankOfSameCount = findRankBySameCountAndIsBonusNumberSame(sameCount, isBonusNumberSame);
 
-        if (rankOfSameCount == null && isBonusNumberSame) {
+        if (rankOfSameCount == RankOfSameCount.NONE && isBonusNumberSame) {
             return findRankBySameCountAndIsBonusNumberSame(sameCount, false);
         }
 
@@ -46,6 +47,6 @@ public enum RankOfSameCount {
         return Arrays.stream(values())
                 .filter(rank -> rank.sameCount == sameCount && rank.isBonusNumberSame == isBonusNumberSame)
                 .findFirst()
-                .orElse(null);
+                .orElse(RankOfSameCount.NONE);
     }
 }
