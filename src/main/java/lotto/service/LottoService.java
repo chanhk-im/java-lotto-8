@@ -17,9 +17,7 @@ public class LottoService {
 
     );
 
-    public Lottos makeLotto(PickNumbersStrategy strategy, int expense) {
-        int lottoCount = calculateLottoCount(expense);
-
+    public Lottos makeLotto(PickNumbersStrategy strategy, int lottoCount) {
         return Lottos.makeLottos(strategy, lottoCount);
     }
 

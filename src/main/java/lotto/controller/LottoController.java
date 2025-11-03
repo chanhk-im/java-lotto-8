@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import lotto.domain.Lotto;
 import lotto.domain.LottoResult;
 import lotto.domain.Lottos;
@@ -16,24 +17,26 @@ public class LottoController {
     private final LottoService lottoService;
     private final PickNumbersStrategy pickNumbersStrategy;
 
+    private int expense;
+    private int lottoCount;
+    private Lottos lottos;
+    private List<Integer> winningNumbers;
+    private int bonusNumber;
+
     public LottoController(LottoService lottoService, PickNumbersStrategy pickNumbersStrategy) {
         this.lottoService = lottoService;
         this.pickNumbersStrategy = pickNumbersStrategy;
     }
 
     public void startLotto() {
-        OutputView.printInputExpense();
-        int expense = InputView.inputExpense();
+        multipleTryMakeLottos();
 
-        Lottos lottos = lottoService.makeLotto(pickNumbersStrategy, expense);
-
-        OutputView.printBoughtLottoMessage(lottoService.calculateLottoCount(expense));
+        OutputView.printBoughtLottoMessage(lottoCount);
         printLottos(lottos);
 
-        List<Integer> winningNumbers = getWinningNumbers();
+        multipleTryGetWinningNumbers();
 
-        OutputView.printInputBonusNumber();
-        int bonusNumber = InputView.inputBonusNumber();
+        multipleTryGetBonusNumbers();
 
         WinningLotto winningLotto = WinningLotto.lottoAndBonusOf(winningNumbers, bonusNumber);
 
@@ -46,10 +49,53 @@ public class LottoController {
         OutputView.printResult(result);
     }
 
-    private List<Integer> getWinningNumbers() {
+    private void getExpense() {
+        OutputView.printInputExpense();
+        expense = InputView.inputExpense();
+    }
+
+    private void multipleTryMakeLottos() {
+        while (true) {
+            try {
+                getExpense();
+                lottoCount = lottoService.calculateLottoCount(expense);
+                lottos = lottoService.makeLotto(pickNumbersStrategy, lottoCount);
+
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+    }
+
+    private void multipleTryGetWinningNumbers() {
+        while (true) {
+            try {
+                getWinningNumbers();
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void getWinningNumbers() {
         OutputView.printInptWinningNumbers();
         String winningNumberText = InputView.inputWinningNumbers();
-        return LottoNumberParser.parseNumbersText(winningNumberText);
+        winningNumbers = LottoNumberParser.parseNumbersText(winningNumberText);
+    }
+
+    private void multipleTryGetBonusNumbers() {
+        while (true) {
+            try {
+                OutputView.printInputBonusNumber();
+                bonusNumber = InputView.inputBonusNumber();
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private void printLottos(Lottos lottos) {
