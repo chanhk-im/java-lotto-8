@@ -9,24 +9,34 @@ import lotto.domain.Lottos;
 import lotto.domain.RankCount;
 import lotto.domain.WinningLotto;
 import lotto.exception.ExpenseIsNotDivisibleException;
+import lotto.exception.ExpenseIsOutOfRangeException;
 import lotto.strategy.PickNumbersStrategy;
 
 public class LottoService {
     private static final int LOTTO_PRICE = 1000;
-    private static final Map<Integer, Integer> RANK_OF_SAME_NUMBER_COUNT = Map.of(
-
-    );
+    private static final int MAX_EXPENSE = 1000000;
 
     public Lottos makeLotto(PickNumbersStrategy strategy, int lottoCount) {
         return Lottos.makeLottos(strategy, lottoCount);
     }
 
     public int calculateLottoCount(int expense) {
+        validateExpenseIsDivisible(expense);
+        validateExpenseIsInRange(expense);
+
+        return expense / LOTTO_PRICE;
+    }
+
+    private void validateExpenseIsDivisible(int expense) {
         if (expense % LOTTO_PRICE != 0) {
             throw new ExpenseIsNotDivisibleException();
         }
+    }
 
-        return expense / LOTTO_PRICE;
+    private void validateExpenseIsInRange(int expense) {
+        if (expense <= 0 || expense > MAX_EXPENSE) {
+            throw new ExpenseIsOutOfRangeException();
+        }
     }
 
     public RankCount calculateRankCount(Lottos lottos, WinningLotto winningLotto) {
@@ -47,6 +57,10 @@ public class LottoService {
     }
 
     public double calculateRateOfReturn(int expense, long returnMoney) {
-        return ((double) returnMoney / expense) * 100;
+        return toPercent((double) returnMoney / expense);
+    }
+
+    private double toPercent(double rate) {
+        return rate * 100;
     }
 }
