@@ -1,7 +1,7 @@
 package lotto.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import lotto.exception.InputExpenseIsNotANumberException;
+import lotto.exception.InputNumberIsNotANumberException;
 
 public final class InputView {
     private InputView() {
@@ -12,7 +12,7 @@ public final class InputView {
         try {
             return Integer.parseInt(line);
         } catch (NumberFormatException e) {
-            throw new InputExpenseIsNotANumberException();
+            throw new InputNumberIsNotANumberException();
         }
     }
 

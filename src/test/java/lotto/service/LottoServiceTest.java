@@ -70,6 +70,6 @@ public class LottoServiceTest {
         long returnMoney = 2000000000;
 
         assertThat(lottoService.calculateRateOfReturn(expense, returnMoney))
-                .isEqualTo((2000000000d) / 5000, withPrecision(0.1d));
+                .isEqualTo(((2000000000d) / 5000) * 100, withPrecision(0.1d));
     }
 }

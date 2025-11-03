@@ -1,7 +1,7 @@
 package lotto.exception;
 
-public class InputExpenseIsNotANumberException extends IllegalArgumentException {
-    public InputExpenseIsNotANumberException() {
-        super(ExceptionMessage.INPUT_EXPENSE_IS_NOT_A_NUMBER.getMessage());
+public class InputNumberIsNotANumberException extends IllegalArgumentException {
+    public InputNumberIsNotANumberException() {
+        super(ExceptionMessage.INPUT_NUMBER_IS_NOT_A_NUMBER.getMessage());
     }
 }

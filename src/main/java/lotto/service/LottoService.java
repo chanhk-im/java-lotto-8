@@ -49,6 +49,6 @@ public class LottoService {
     }
 
     public double calculateRateOfReturn(int expense, long returnMoney) {
-        return (double) returnMoney / expense;
+        return ((double) returnMoney / expense) * 100;
     }
 }
