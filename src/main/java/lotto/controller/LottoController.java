@@ -42,7 +42,7 @@ public class LottoController {
         long returnMoney = rankCount.calculatePrize();
         double rateOfReturn = lottoService.calculateRateOfReturn(expense, returnMoney);
 
-        LottoResult result = new LottoResult(lottos, rankCount, rateOfReturn);
+        LottoResult result = new LottoResult(rankCount, rateOfReturn);
         OutputView.printResult(result);
     }
 
