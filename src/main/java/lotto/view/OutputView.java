@@ -18,6 +18,9 @@ public final class OutputView {
     private static final String LOTTO_RESULT_BONUS_FORMAT = "%d개 일치, 보너스 볼 일치 (%s원) - %d개\n";
     private static final String LOTTO_RATE_OF_RETURN_FORMAT = "총 수익률은 %.1f%%입니다.\n";
 
+    private static final String LOTTO_NUMBER_DELIMITER = ", ";
+    private static final String RETURN_MONEY_FORMAT = "###,###";
+
     private OutputView() {
     }
 
@@ -30,7 +33,7 @@ public final class OutputView {
     }
 
     public static void printBoughtLottoNumber(List<Integer> numbers) {
-        StringJoiner joiner = new StringJoiner(", ");
+        StringJoiner joiner = new StringJoiner(LOTTO_NUMBER_DELIMITER);
 
         numbers.forEach((number -> {
             joiner.add(String.valueOf(number));
@@ -55,7 +58,7 @@ public final class OutputView {
     }
 
     private static void printRanks(RankCount rankCount) {
-        DecimalFormat formatter = new DecimalFormat("###,###");
+        DecimalFormat formatter = new DecimalFormat(RETURN_MONEY_FORMAT);
 
         rankCount.rankCount().forEach(((rankOfSameCount, count) -> {
             if (rankOfSameCount.equals(RankOfSameCount.NONE)) {

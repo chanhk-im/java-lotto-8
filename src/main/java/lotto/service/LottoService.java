@@ -1,8 +1,12 @@
 package lotto.service;
 
+import static lotto.constants.LottoConstants.LOTTO_PRICE;
+import static lotto.constants.LottoConstants.MAX_EXPENSE;
+
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
+import lotto.constants.LottoConstants;
 import lotto.constants.RankOfSameCount;
 import lotto.domain.LottoResult;
 import lotto.domain.Lottos;
@@ -13,8 +17,6 @@ import lotto.exception.ExpenseIsOutOfRangeException;
 import lotto.strategy.PickNumbersStrategy;
 
 public class LottoService {
-    private static final int LOTTO_PRICE = 1000;
-    private static final int MAX_EXPENSE = 1000000;
 
     public Lottos makeLotto(PickNumbersStrategy strategy, int lottoCount) {
         return Lottos.makeLottos(strategy, lottoCount);

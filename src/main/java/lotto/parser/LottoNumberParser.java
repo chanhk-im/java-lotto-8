@@ -5,12 +5,14 @@ import java.util.List;
 import lotto.exception.InputNumberIsNotANumberException;
 
 public final class LottoNumberParser {
+    private static final String DELIMITER = ",";
+
     private LottoNumberParser() {
     }
 
     public static List<Integer> parseNumbersText(String text) {
         try {
-            return Arrays.stream(text.split(","))
+            return Arrays.stream(text.split(DELIMITER))
                     .map(numberText -> Integer.parseInt(numberText.trim()))
                     .toList();
         } catch (NumberFormatException e) {

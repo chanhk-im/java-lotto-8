@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.List;
+import lotto.constants.LottoConstants;
 import lotto.exception.LottoNumbersHaveDuplicatedValueException;
 import lotto.exception.LottoNumbersWrongSizeException;
 
@@ -25,7 +26,7 @@ public class Lotto {
     }
 
     private static void validateNumbersSize(List<Integer> numbers) {
-        if (numbers.size() != 6) {
+        if (numbers.size() != LottoConstants.LOTTO_SIZE) {
             throw new LottoNumbersWrongSizeException();
         }
     }
