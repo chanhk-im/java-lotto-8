@@ -10,6 +10,8 @@ import lotto.strategy.PickFixedNumbersStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -45,6 +47,14 @@ public class LottoServiceTest {
     @DisplayName("[LottoService] 로또 가격이 나누어떨어지지 않으면 예외가 발생한다.")
     void calculateLottoCountException() {
         int money = 5500;
+
+        assertThatThrownBy(() -> lottoService.calculateLottoCount(money)).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, -1000, 1000001})
+    @DisplayName("[LottoService] 로또 가격이 범위를 벗어나면 예외가 발생한다.")
+    void calculateLottoCountIsOutOfRange(int money) {
 
         assertThatThrownBy(() -> lottoService.calculateLottoCount(money)).isInstanceOf(IllegalArgumentException.class);
     }
