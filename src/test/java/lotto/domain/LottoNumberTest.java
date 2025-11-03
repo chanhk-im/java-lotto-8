@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class LottoNumberTest {
     @Test
-    @DisplayName("로또 번호는 숫자 하나를 넣어서 생성할 수 있다.")
+    @DisplayName("[LottoNumber] 로또 번호는 숫자 하나를 넣어서 생성할 수 있다.")
     void createLottoNumber() {
         int number = 3;
 
@@ -21,7 +21,7 @@ public class LottoNumberTest {
 
     @ParameterizedTest
     @ValueSource(ints = {46, 100, -4, 0})
-    @DisplayName("1~45 사이의 수가 아니면 IllegalArgumentException 예외가 발생한다")
+    @DisplayName("[LottoNumber] 1~45 사이의 수가 아니면 IllegalArgumentException 예외가 발생한다")
     void createLottoNumberException(int number) {
 
         assertThatThrownBy(() -> LottoNumber.valueOf(number)).isInstanceOf(IllegalArgumentException.class);
